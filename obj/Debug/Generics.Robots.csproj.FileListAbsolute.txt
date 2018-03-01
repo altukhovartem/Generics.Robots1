@@ -1,0 +1,9 @@
+C:\MyRepo\Generics.Robots1\bin\Debug\Generics.Robots.exe.config
+C:\MyRepo\Generics.Robots1\bin\Debug\Generics.Robots.exe
+C:\MyRepo\Generics.Robots1\bin\Debug\Generics.Robots.pdb
+C:\MyRepo\Generics.Robots1\bin\Debug\nunit.framework.dll
+C:\MyRepo\Generics.Robots1\bin\Debug\nunitlite.dll
+C:\MyRepo\Generics.Robots1\obj\Debug\Generics.Robots.csprojResolveAssemblyReference.cache
+C:\MyRepo\Generics.Robots1\obj\Debug\Generics.Robots.csproj.CoreCompileInputs.cache
+C:\MyRepo\Generics.Robots1\obj\Debug\Generics.Robots.exe
+C:\MyRepo\Generics.Robots1\obj\Debug\Generics.Robots.pdb
