@@ -8,50 +8,40 @@ using System.Threading.Tasks;
 namespace Generics.Robots
 {
 
-	public interface IRobotic<out T>
+	public interface RobotAI<out T>
+        where T : IMoveCommand
 	{
 		T GetCommand();
 	}
 
-	public abstract class RobotAI<T> : IRobotic<T>
-	{
-		public abstract T GetCommand();
-	}
-
-	public class ShooterAI<T> : RobotAI<T>
-		where T : ShooterCommand
-	{
+	public class ShooterAI : RobotAI<ShooterCommand>
+	{ 
 		int counter = 1;
 
-		public override T GetCommand()
+		public ShooterCommand GetCommand()
 		{
-			return ShooterCommand.ForCounter(counter++) as T;
+			return ShooterCommand.ForCounter(counter++) ;
+		}
+    }
+
+	public class BuilderAI: RobotAI<BuilderCommand>
+	{
+		int counter = 1;
+		public BuilderCommand GetCommand()
+		{
+			return BuilderCommand.ForCounter(counter++);
 		}
 	}
 
-	public class BuilderAI<T> : RobotAI<T>
-				where T : BuilderCommand
-	{
-		int counter = 1;
-		public override T GetCommand()
-		{
-			return BuilderCommand.ForCounter(counter++) as T;
-		}
-	}
-
-	public interface IDevicable<in T>
-	{
+	public interface Device<in T>
+        where T : IMoveCommand
+    {
 		string ExecuteCommand(T command);
 	}
 
-	public abstract class Device<T> : IDevicable<T>
-	{
-		public abstract string ExecuteCommand(T command);
-	}
-
-	public class Mover<T> : Device<T>
-	{
-		public override string ExecuteCommand(T _command)
+	public class Mover: Device<IMoveCommand>
+    {
+		public string ExecuteCommand(IMoveCommand _command)
 		{
 			var command = _command as IMoveCommand;
 			if (command == null)
@@ -62,13 +52,13 @@ namespace Generics.Robots
 
 
 
-	public class Robot<T>
+	public class Robot
 	{
-		RobotAI<T> ai;
-		Device<T> device;
+        RobotAI<IMoveCommand> ai;
+        Device<IMoveCommand> device;
 
-		public Robot(RobotAI<T> ai, Device<T> executor)
-		{
+		public Robot(RobotAI<IMoveCommand> ai, Device<IMoveCommand> executor)
+		{   
 			this.ai = ai;
 			this.device = executor;
 		}
@@ -79,17 +69,17 @@ namespace Generics.Robots
 			{
 				var command = ai.GetCommand();
 				if (command == null)
-					break;
+			
+		break;
 				yield return device.ExecuteCommand(command);
 			}
 
 		}
 
-		public static Robot<T> Create(RobotAI<T> ai, Device<T> executor)
+		public static Robot Create(RobotAI<IMoveCommand> ai, Device<IMoveCommand> executor)
 		{
-			return new Robot<T>(ai, executor);
+			return new Robot(ai, executor);
 		}
 	}
-
 
 }

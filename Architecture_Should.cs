@@ -13,7 +13,7 @@ namespace Generics.Robots
         [Test]
         public void BeCorrectForShooter()
         {
-            var robot = Robot<ShooterCommand>.Create(new ShooterAI<ShooterCommand>(), new Mover<ShooterCommand>());
+            var robot = Robot.Create(new ShooterAI(), new Mover());
             var result = robot.Start(5);
             var dueResult = Enumerable.Range(1, 5).Select(z => $"MOV {z * 2}, {z * 3}");
             CollectionAssert.AreEqual(dueResult, result);
@@ -22,7 +22,7 @@ namespace Generics.Robots
         [Test]
         public void BeCorrectForBuilder()
         {
-            var robot = Robot<BuilderCommand>.Create(new BuilderAI<BuilderCommand>(), new Mover<BuilderCommand>());
+            var robot = Robot.Create(new BuilderAI(), new Mover());
             var result = robot.Start(5).ToArray();
             var dueResult = Enumerable.Range(1, 5).Select(z => $"MOV {z}, {z}");
             CollectionAssert.AreEqual(dueResult, result);
